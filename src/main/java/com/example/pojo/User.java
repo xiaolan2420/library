@@ -13,7 +13,7 @@ public class User {
     private UserRole role; // 用户角色
     private String email; // 邮箱
     private String phoneNumber; // 手机号码
-    private String otherUserDetails; // 其他用户信息
+    private int readNotification;// 已读消息最大编号
     private Timestamp createTime; // 创建时间
     private Timestamp updateTime; // 更新时间
 

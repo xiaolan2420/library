@@ -10,6 +10,10 @@ import java.util.List;
 @Mapper
 public interface UserMapper{
 
+    //根据用户ID查询用户
+    @Select("SELECT * FROM users WHERE user_id = #{userId}")
+    User findByUserId(int userId);
+
     //根据用户名查询用户
     @Select("SELECT * FROM users WHERE username = #{username}")
     User findByUserName(String username);
@@ -32,4 +36,8 @@ public interface UserMapper{
 
     @Delete("DELETE FROM users WHERE username = #{username}")
     void delete(String username);
+
+
+    @Update("UPDATE users SET read_notification = #{readNotification} WHERE user_id = #{userId}")
+    void updateReadNotification(User user);
 }
