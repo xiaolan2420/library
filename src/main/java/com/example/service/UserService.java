@@ -20,7 +20,8 @@ public interface UserService {
     //用户登录
     int login(String username, String password);
 
-    List<UserDTO> findAll();
+    //查询所有用户
+    List<UserDTO> findAll(int pageNum,int pageSize);
 
     int update(User user);
 

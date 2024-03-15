@@ -53,9 +53,9 @@ public class ReservationController {
 
     // 获取预约列表
     @GetMapping("/list")
-    public Result list() {
+    public Result list(int pageNum, int pageSize) {
 
-        List<Reservation> reservations = reservationService.findAll();
+        List<Reservation> reservations = reservationService.findAll(pageNum, pageSize);
         // 返回一个包含用户列表的Result对象
         if (reservations != null) {
             return Result.success(reservations);
@@ -66,11 +66,10 @@ public class ReservationController {
 
     // 获取用户自己的预约列表
     @GetMapping("/reservationInfo")
-    public Result reservationInfo() {
+    public Result reservationInfo(int pageNum,int pageSize) {
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userId = (Integer) map.get("id");
-
-        List<Reservation> reservations = reservationService.findByUserId(userId);
+        List<Reservation> reservations = reservationService.findByUserId(userId, pageNum, pageSize);
         // 返回一个包含用户列表的Result对象
         if (reservations != null) {
             return Result.success(reservations);

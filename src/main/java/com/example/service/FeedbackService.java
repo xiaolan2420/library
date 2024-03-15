@@ -10,9 +10,9 @@ public interface FeedbackService {
 
     void addSeatReview(String feedbackText, String seatNumber, Integer floor);
 
-    List<Feedback> findAll();
+    List<Feedback> findAll(int pageNum,int pageSize);
 
-    List<Feedback> findBySeatId(String seatNumber, Integer floor);
+    List<Feedback> findBySeatId(String seatNumber, Integer floor,int pageNum,int pageSize);
 
-    List<Feedback> findByUseId(int userId);
+    List<Feedback> findByUseId(int userId,int pageNum,int pageSize);
 }

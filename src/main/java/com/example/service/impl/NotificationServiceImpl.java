@@ -12,6 +12,7 @@ import com.example.pojo.Seat;
 import com.example.pojo.User;
 import com.example.service.FeedbackService;
 import com.example.service.NotificationService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     // 个人消息和公告
     @Override
-    public List<Notification> getNotifications(int userId) {
+    public List<Notification> getNotifications(int userId,int pageNum,int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         NotificationType notificationType = NotificationType.announcement;
         List<Notification> notifications = notificationMapper.findByUserId(userId, notificationType);
         return notifications;
@@ -52,7 +54,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     // 所有公告
     @Override
-    public List<Notification> list() {
+    public List<Notification> list(int pageNum,int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         NotificationType notificationType = NotificationType.announcement;
         List<Notification> notifications = notificationMapper.find(notificationType);
         return notifications;
@@ -78,7 +81,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     //未读消息
     @Override
-    public List<Notification> getUnreadNotifications(Integer userId) {
+    public List<Notification> getUnreadNotifications(Integer userId,int pageNum,int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         User user = userMapper.findByUserId(userId);
         int maxReadNotification=user.getReadNotification();
         NotificationType notificationType = NotificationType.announcement;

@@ -9,6 +9,7 @@ import com.example.pojo.UserDTO;
 import com.example.service.SeatService;
 import com.example.service.UserService;
 import com.example.utils.ThreadLocalUtil;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +38,8 @@ public class SeatController {
 
     // 获取座位列表
     @GetMapping("/list")
-    public Result list() {
-
-        List<Seat> seats = seatService.findAll();
+    public Result list(int pageNum, int pageSize) {
+        List<Seat> seats = seatService.findAll(pageNum, pageSize);
         // 返回一个包含用户列表的Result对象
         if (seats != null) {
             return Result.success(seats);
@@ -66,9 +66,9 @@ public class SeatController {
     public Result update(@RequestBody Seat seat) {
 
         int code = seatService.update(seat);
-        if(code==0){
+        if (code == 0) {
             return Result.success("更新成功");
-        }else{
+        } else {
             return Result.error("更新失败");
         }
     }
@@ -77,7 +77,7 @@ public class SeatController {
     @GetMapping("/retrieve")
     public Result retrieve(String seatNumber, Integer floor) {
         // 根据用户名查询用户信息
-        Seat seat=seatService.findBySeatNumberAndFloor(seatNumber,floor);
+        Seat seat = seatService.findBySeatNumberAndFloor(seatNumber, floor);
         // 返回一个包含用户信息的Result对象
         if (seat != null) {
             return Result.success(seat);

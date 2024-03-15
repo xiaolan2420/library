@@ -3,13 +3,11 @@ package com.example.service.impl;
 import com.example.enums.SeatType;
 import com.example.mapper.SeatMapper;
 import com.example.pojo.Seat;
-import com.example.pojo.User;
 import com.example.service.SeatService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -46,7 +44,8 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public List<Seat> findAll() {
+    public List<Seat> findAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Seat> seats = seatMapper.findAll();
         return seats;
     }

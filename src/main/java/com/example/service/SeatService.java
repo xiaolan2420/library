@@ -14,7 +14,7 @@ public interface SeatService {
 
     int delete(String seatNumber, Integer floor);
 
-    List<Seat> findAll();
+    List<Seat> findAll(int pageNum, int pageSize);
 
     int update(Seat seat);
 }

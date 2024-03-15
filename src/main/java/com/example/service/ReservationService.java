@@ -9,9 +9,9 @@ import java.util.Date;
 import java.util.List;
 
 public interface ReservationService {
-    List<Reservation> findAll();
+    List<Reservation> findAll(int pageNum, int pageSize);
 
-    List<Reservation> findByUserId(int userId);
+    List<Reservation> findByUserId(int userId, int pageNum, int pageSize);
 
     int reserveSeat(Integer userId, String seatNumber, Integer floor, LocalDate reservationDate, LocalTime startTime, LocalTime endTime);
 

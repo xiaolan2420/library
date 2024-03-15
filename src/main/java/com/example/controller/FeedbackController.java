@@ -39,13 +39,13 @@ public class FeedbackController {
         return Result.success("反馈成功");
     }
 
-    // 查询用户反馈
+    // 用户反馈记录
     @GetMapping("/userFeedbackRetrieve")
-    public Result userFeedback() {
+    public Result userFeedback(int pageNum,int pageSize) {
 
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userId = (Integer) map.get("id");
-        List<Feedback> feedbacks = feedbackService.findByUseId(userId);
+        List<Feedback> feedbacks = feedbackService.findByUseId(userId,pageNum,pageSize);
         // 返回一个包含用户信息的Result对象
         if (feedbacks != null) {
             return Result.success(feedbacks);
@@ -64,9 +64,9 @@ public class FeedbackController {
 
     // 查询座位评价
     @GetMapping("/seatReviewRetrieve")
-    public Result seatReviewRetrieve(String seatNumber, Integer floor) {
+    public Result seatReviewRetrieve(String seatNumber, Integer floor,int pageNum,int pageSize) {
 
-        List<Feedback> feedbacks = feedbackService.findBySeatId(seatNumber,floor);
+        List<Feedback> feedbacks = feedbackService.findBySeatId(seatNumber,floor,pageNum,pageSize);
         // 返回一个包含用户信息的Result对象
         if (feedbacks != null) {
             return Result.success(feedbacks);
@@ -77,9 +77,9 @@ public class FeedbackController {
 
     // 管理员查看反馈列表
     @GetMapping("/list")
-    public Result list() {
+    public Result list(int pageNum,int pageSize) {
 
-        List<Feedback> feedbacks = feedbackService.findAll();
+        List<Feedback> feedbacks = feedbackService.findAll(pageNum,pageSize);
         // 返回一个包含用户列表的Result对象
         if (feedbacks != null) {
             return Result.success(feedbacks);

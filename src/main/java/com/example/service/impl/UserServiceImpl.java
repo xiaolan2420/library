@@ -110,7 +110,8 @@ public class UserServiceImpl implements UserService {
 
     // 查询所有用户
     @Override
-    public List<UserDTO> findAll() {
+    public List<UserDTO> findAll(int pageNum,int pageSize){
+        PageHelper.startPage(pageNum, pageSize);
         List<User> users = userMapper.findAll();
         // 将User对象转换为UserDTO对象
         List<UserDTO> userDTOs = users.stream().map(user -> {

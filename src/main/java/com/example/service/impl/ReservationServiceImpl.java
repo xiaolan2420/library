@@ -6,6 +6,7 @@ import com.example.mapper.SeatMapper;
 import com.example.pojo.Reservation;
 import com.example.pojo.Seat;
 import com.example.service.ReservationService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     // 判断是否被预约，已经被预约为true
-    public boolean isReserved(Integer seatId, LocalDate reservationDate, LocalTime startTime, LocalTime endTime){
+    public boolean isReserved(Integer seatId, LocalDate reservationDate, LocalTime startTime, LocalTime endTime) {
         List<Reservation> reservations = reservationMapper.findBySeatID(seatId);
 
         boolean isReserved = reservations.stream()
@@ -55,14 +56,16 @@ public class ReservationServiceImpl implements ReservationService {
 
     // 查询所有预约
     @Override
-    public List<Reservation> findAll() {
+    public List<Reservation> findAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Reservation> reservations = reservationMapper.findAll();
         return reservations;
     }
 
     // 查询用户预约
     @Override
-    public List<Reservation> findByUserId(int userId) {
+    public List<Reservation> findByUserId(int userId, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Reservation> reservations = reservationMapper.findByUserId(userId);
         return reservations;
     }
@@ -80,7 +83,7 @@ public class ReservationServiceImpl implements ReservationService {
             // 座位不可用
             return 2;
         }
-        if (isReserved(seatId, reservationDate, startTime,endTime)) {
+        if (isReserved(seatId, reservationDate, startTime, endTime)) {
             // 座位已被预约
             return 3;
         }

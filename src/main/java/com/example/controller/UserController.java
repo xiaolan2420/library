@@ -68,14 +68,14 @@ public class UserController {
 
     // 获取用户列表
     @GetMapping("/list")
-    public Result list() {
+    public Result list(int pageNum,int pageSize) {
         Map<String, Object> map = ThreadLocalUtil.get();
         String username = (String) map.get("username");
         // 根据用户名查询用户信息
         User user = userService.findByUserName(username);
         // 判断用户角色
         if (user.getRole().toString().equals("admin") || user.getRole().toString().equals("staff")) {
-            List<UserDTO> userDTOs = userService.findAll();
+            List<UserDTO> userDTOs = userService.findAll(pageNum,pageSize);
             // 返回一个包含用户列表的Result对象
             if (userDTOs != null) {
                 return Result.success(userDTOs);

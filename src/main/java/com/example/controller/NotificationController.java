@@ -42,26 +42,26 @@ public class NotificationController {
 
     // 展示所有公告
     @GetMapping("/list")
-    public Result list() {
-        List<Notification> notifications = notificationService.list();
+    public Result list(int pageNum,int pageSize) {
+        List<Notification> notifications = notificationService.list(pageNum,pageSize);
         return  Result.success(notifications);
     }
 
     // 查询个人消息和公告
     @GetMapping("/getNotification")
-    public Result getNotifications() {
+    public Result getNotifications(int pageNum,int pageSize) {
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userId = (Integer) map.get("id");
-        List<Notification> notifications = notificationService.getNotifications(userId);
+        List<Notification> notifications = notificationService.getNotifications(userId,pageNum,pageSize);
         return  Result.success(notifications);
     }
 
     // 查询未读消息
     @GetMapping("/unread")
-    public Result getUnreadNotifications() {
+    public Result getUnreadNotifications(int pageNum,int pageSize) {
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userId = (Integer) map.get("id");
-        List<Notification> notifications = notificationService.getUnreadNotifications(userId);
+        List<Notification> notifications = notificationService.getUnreadNotifications(userId,pageNum,pageSize);
         return  Result.success(notifications);
     }
 
